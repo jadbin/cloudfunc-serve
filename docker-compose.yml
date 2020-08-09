@@ -1,0 +1,6 @@
+version: '3'
+services:
+  cloudfunc_serve:
+    build: .
+    ports:
+      - 8316:8316
