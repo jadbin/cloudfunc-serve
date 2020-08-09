@@ -14,4 +14,4 @@ venv
 
 *.log
 *.pid
-/data
+.data
