@@ -1,6 +1,8 @@
 # coding=utf-8
 
 import logging
+import os
+from os.path import join
 
 from flask_sqlalchemy import SQLAlchemy
 
@@ -13,6 +15,8 @@ def make_settings(app, settings):
     """
     This function is invoked before initializing app.
     """
+    settings['data_dir'] = join(settings['home'], 'data')
+    os.makedirs(settings['data_dir'], exist_ok=True)
 
 
 def init_app(app, settings):
