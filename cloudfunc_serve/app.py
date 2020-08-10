@@ -17,8 +17,10 @@ def make_settings(app, settings):
     """
     settings['data_dir'] = join(settings['home'], '.data')
     os.makedirs(settings['data_dir'], exist_ok=True)
-    settings['source_code_home'] = join(settings['data_dir'], 'source_code')
-    os.makedirs(settings['source_code_home'], exist_ok=True)
+    settings['packages_home'] = join(settings['data_dir'], 'packages')
+    os.makedirs(settings['packages_home'], exist_ok=True)
+    settings['dists_home'] = join(settings['data_dir'], 'dists')
+    os.makedirs(settings['dists_home'], exist_ok=True)
 
 
 def init_app(app, settings):

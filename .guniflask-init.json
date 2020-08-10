@@ -1,6 +1,6 @@
 {
   "authentication_type": null,
-  "cli_version": "0.8.3",
+  "cli_version": "0.8.6",
   "port": 8316,
   "project_name": "cloudfunc_serve"
 }

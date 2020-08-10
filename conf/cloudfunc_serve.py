@@ -4,10 +4,11 @@
 # SQLALCHEMY_DATABASE_URI = ''
 
 docker_host = 'unix:///var/run/docker.sock'
-docker_base_image = 'python:3.7'
+docker_base_image = 'jadbin/cloudfunc'
 docker_container_prefix = 'cloudfunc-'
 
 # guniflask configuration
 guniflask = dict(
     cors=True,
+    consul={},
 )
