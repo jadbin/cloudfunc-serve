@@ -27,15 +27,6 @@ class CloudFuncController:
             abort(400, 'cloud function name format: <package_name>.<function_name>')
         project_name, func_name = name.split('.', maxsplit=1)
         try:
-            from urllib.parse import urlsplit
-            url = f'http://{project_name}/cloud-funcs/{func_name}'
-            result = urlsplit(url)
-            if '.' not in result.netloc:
-                service_name = result.netloc
-                service_instance = self.load_balancer_client.choose(service_name)
-                if service_instance is not None:
-                    url = self.load_balancer_client.reconstruct_url(service_instance, url)
-
             resp = self.load_balanced_request.post(f'http://{project_name}/cloud-funcs/{func_name}')
         except Exception as e:
             abort(500, str(e))
