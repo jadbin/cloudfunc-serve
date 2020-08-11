@@ -16,6 +16,11 @@ class CloudFuncController:
         self.load_balanced_request = load_balanced_request
         self.load_balancer_client = load_balancer_client
 
+    @put_route('/cloud-funcs/start')
+    def start_cloud_func(self, name: str):
+        self.docker_service.start_could_func(name=name)
+        return 'success'
+
     @put_route('/cloud-funcs/restart')
     def restart_cloud_func(self, name: str):
         self.docker_service.restart_could_func(name=name)

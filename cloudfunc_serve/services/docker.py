@@ -1,10 +1,7 @@
 # coding=utf-8
 
-from typing import List
 from os.path import join
 from shutil import copyfile
-import getpass
-import pwd
 
 from guniflask.config import settings
 from guniflask.context import service
@@ -42,6 +39,21 @@ class DockerService:
         src_files = [join(settings['home'], 'resources', 'serve.py')]
         for src_file, dest_file in zip(src_files, dest_files):
             copyfile(src_file, dest_file)
+
+    def start_could_func(self, name: str):
+        try:
+            container: Container = self.docker.containers.get('{}{}'.format(settings['docker_container_prefix'], name))
+        except docker_errors.NotFound:
+            pass
+        else:
+            if container.status in ('running', 'restarting'):
+                pass
+            elif container.status == 'paused':
+                container.unpause()
+            elif container.status in ('created', 'exited'):
+                container.start()
+            else:
+                self.remove_cloud_func(name)
 
     def restart_could_func(self, name: str):
         self.remove_cloud_func(name)
