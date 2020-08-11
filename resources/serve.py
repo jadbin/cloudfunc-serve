@@ -1,10 +1,10 @@
 # coding=utf-8
 
+import sys
 from typing import List
 from os.path import abspath, dirname, join
 import socket
 from pip._internal.cli.main import main as pip_main
-import sys
 
 from cloudfunc.setuptools import run_setup, after_setup
 from cloudfunc.app import create_app

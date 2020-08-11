@@ -36,6 +36,7 @@ class PackageService:
                 if isdir(package_dir):
                     shutil.rmtree(package_dir)
                 shutil.move(dist_dir, package_dir)
+                self.docker_service.run_cloud_func(name)
             finally:
                 if isfile(dist_file):
                     os.remove(dist_file)
