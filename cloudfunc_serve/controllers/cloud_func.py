@@ -41,7 +41,7 @@ class CloudFuncController:
                 abort(500, resp.text)
             return Response(response=resp.content, content_type='application/octet-stream')
 
-    @get_route('/cloud_funcs')
+    @get_route('/cloud-funcs')
     def get_cloud_func_info(self, name: str):
         if '.' not in name:
             url = f'http://{name}/cloud-funcs'
@@ -49,7 +49,7 @@ class CloudFuncController:
             project_name, func_name = name.split('.', maxsplit=1)
             url = f'http://{project_name}/cloud-funcs/{func_name}'
         try:
-            resp = self.load_balanced_request.post(url)
+            resp = self.load_balanced_request.get(url)
         except Exception as e:
             abort(500, str(e))
         else:
