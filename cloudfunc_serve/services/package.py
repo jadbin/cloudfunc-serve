@@ -6,6 +6,7 @@ import shutil
 import tarfile
 import fcntl
 
+from flask import abort
 from werkzeug.utils import secure_filename
 from guniflask.config import settings
 from guniflask.context import service
@@ -26,11 +27,12 @@ class PackageService:
         package_dir = join(settings['packages_home'], name)
         with open(lock_file, 'w') as fd:
             fcntl.flock(fd, fcntl.LOCK_EX)
+            self._check_version(name, version)
             try:
                 file.save(dist_file)
                 with tarfile.open(dist_file, 'r') as f:
                     f.extractall(dist_dir)
-                # self.docker_service.remove_cloud_func(name)
+                self.docker_service.remove_cloud_func(name)
                 if isdir(package_dir):
                     shutil.rmtree(package_dir)
                 shutil.move(dist_dir, package_dir)
@@ -39,3 +41,7 @@ class PackageService:
                     os.remove(dist_file)
                 if isdir(dist_dir):
                     shutil.rmtree(dist_dir)
+
+    def _check_version(self, name: str, version: str):
+        # TODO
+        pass
